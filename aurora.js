@@ -18,9 +18,7 @@ let light = new Image();
 light.src="images/light.png";
 // light.setAttribute("style","background-color:#00ff00ff;");
 
-let testLight = document.querySelector("#testLight");
-// testLight.setAttribute("style","color: rgba(255,255,0, 0.5);")
-console.log("TEST LIGHT IS "+testLight);
+//light.setAttribute("style","color: rgba(255,255,0, 0.5);")
 let RGB = [255,0,0];
 let currentRGBIndex = 1;
 let lastRGBIndex = 0;
@@ -84,7 +82,6 @@ function updateAuroraEffect(){
             tempData[i-3] = RGB[0];
             tempData[i-2] = RGB[1];
             tempData[i-1] = RGB[2];
-            //tempData[i-2]+=FADE_AMOUNT;
         }
         testContext.putImageData(tempImage,0,0);
     }
