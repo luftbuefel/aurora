@@ -3,10 +3,13 @@ let context = canvas.getContext("2d");
 
 let testCanvas = document.querySelector("#testCanvas");
 let testContext = testCanvas.getContext("2d");
+//hide the light canvas that is just being used for image processing
+testCanvas.setAttribute("style", "display: none;");
+
 const FADE_AMOUNT = 1;
 
-// var offscreen = new OffscreenCanvas(256, 256);
-// var gl = offscreen.getContext('2d');
+// var offscreen = new OffscreenCanvas(150, 150);
+// var gl = offscreen.getContext('webgl');
 
 let nightSky = new Image();
 nightSky.src = 'images/night.jpg';
@@ -18,6 +21,8 @@ let light = new Image();
 light.src="images/light.png";
 let lightHolder = document.querySelector("#lightHolder");
 let lightContext = lightHolder.getContext("2d");
+//hide the light canvas that is just being used for image processing
+lightHolder.setAttribute("style", "display: none;");
 
 let RGB = [255,0,0];
 let currentRGBIndex = 1;
