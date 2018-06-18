@@ -30,10 +30,10 @@ function bkgdLoadComplete(){
 
 function update(){
     fadeImage();
+    changeLightColor();
     context.drawImage(nightSky,0,0);
     context.drawImage(testCanvas,0,0);
     context.drawImage(trees,0,0);
-    changeLightColor();
     window.requestAnimationFrame(update);
 }
 
