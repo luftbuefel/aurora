@@ -4,9 +4,11 @@ let context = canvas.getContext("2d");
 let testCanvas = document.querySelector("#testCanvas");
 let testContext = testCanvas.getContext("2d");
 //hide the light canvas that is just being used for image processing
-testCanvas.setAttribute("style", "display: none;");
+// testCanvas.setAttribute("style", "display: none;");
 
 const FADE_AMOUNT = 1;
+const DRIFT_X_AMOUNT = 1;
+const DRIFT_Y_AMOUNT = 0;
 
 // var offscreen = new OffscreenCanvas(150, 150);
 // var gl = offscreen.getContext('webgl');
@@ -18,11 +20,11 @@ let trees = new Image();
 trees.src="images/trees.png"
 
 let light = new Image();
-light.src="images/light.png";
+light.src="images/light2.png";
 let lightHolder = document.querySelector("#lightHolder");
 let lightContext = lightHolder.getContext("2d");
 //hide the light canvas that is just being used for image processing
-lightHolder.setAttribute("style", "display: none;");
+// lightHolder.setAttribute("style", "display: none;");
 
 let RGB = [255,0,0];
 let currentRGBIndex = 1;
@@ -69,9 +71,10 @@ function changeLightColor(){
     }
 }
 
+
 function fadeImage(){
     if(testCanvas.width>0){
-        let tempImage = testContext.getImageData(0,0,testCanvas.width, testCanvas.height);
+        let tempImage = testContext.getImageData(DRIFT_X_AMOUNT,DRIFT_Y_AMOUNT,testCanvas.width, testCanvas.height);
         let tempData = tempImage.data;
         //reduce the alpha values; i.e. every fourth value
         for(let i = 3;i<tempData.length;i+=4){
