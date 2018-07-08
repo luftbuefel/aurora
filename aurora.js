@@ -3,16 +3,10 @@ let context = canvas.getContext("2d");
 
 let testCanvas = document.querySelector("#testCanvas");
 let testContext = testCanvas.getContext("2d");
-//hide the light canvas that is just being used for image processing
-
-// testCanvas.setAttribute("style", "display: none;");
 
 const FADE_AMOUNT = 1;
 const DRIFT_X_AMOUNT = 1;
 const DRIFT_Y_AMOUNT = 0;
-
-// var offscreen = new OffscreenCanvas(150, 150);
-// var gl = offscreen.getContext('webgl');
 
 let nightSky = new Image();
 nightSky.src = 'images/night.jpg';
@@ -46,8 +40,7 @@ function update(){
 }
 
 function moveLight(e){
-    testContext.drawImage(lightHolder,e.clientX-(lightHolder.width/2),e.clientY-(lightHolder.height));
-
+    testContext.drawImage(lightHolder,e.clientX-(lightHolder.width/2),e.clientY-(lightHolder.height/2));
 }
 
 function changeLightColor(){
@@ -74,32 +67,8 @@ function changeLightColor(){
 }
 
 // function driftImage(){
-    
+
 // }
-
-function fadeImage(){
-    if(testCanvas.width>0){
-        let tempImage = testContext.getImageData(0,0,testCanvas.width, testCanvas.height);
-        let tempData = tempImage.data;
-        //reduce the alpha values; i.e. every fourth value
-        for(let i = 3;i<tempData.length;i+=4){
-            tempData[i]=tempData[i]>FADE_AMOUNT?tempData[i]-FADE_AMOUNT:0;
-        }
-        let lightImage = lightContext.getImageData(0,0,lightHolder.width, lightHolder.height);
-        lightContext.putImageData(lightImage,0,0);
-    }
-    //cycle through different colors
-    if(RGB[currentRGBIndex]<255){
-        RGB[currentRGBIndex]++;
-        RGB[lastRGBIndex]--;
-    }else{
-        //move to the next color
-        lastRGBIndex = currentRGBIndex;
-        currentRGBIndex = currentRGBIndex+1<RGB.length?currentRGBIndex+1:0;
-    }
-}
-
-
 function fadeImage(){
     if(testCanvas.width>0){
         let tempImage = testContext.getImageData(DRIFT_X_AMOUNT,DRIFT_Y_AMOUNT,testCanvas.width, testCanvas.height);
