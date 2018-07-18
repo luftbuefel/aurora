@@ -18,12 +18,21 @@ let light = new Image();
 light.src="images/light.png";
 let lightHolder = document.querySelector("#lightHolder");
 let lightContext = lightHolder.getContext("2d");
-//hide the light canvas that is just being used for image processing
-// lightHolder.setAttribute("style", "display: none;");
 
 let RGB = [255,0,0];
 let currentRGBIndex = 1;
 let lastRGBIndex = 0;
+
+//resize the window to take up the full screen
+function init(){
+    let pageWidth = document.body.clientWidth;
+    let pageHeight = document.body.clientHeight;
+    canvas.width = pageWidth;
+    canvas.height = pageHeight
+    //add the lightHolder width so the light doesn't get cut short
+    testCanvas.width = pageWidth+lightHolder.width;
+    testCanvas.height = pageHeight;
+}
 
 function bkgdLoadComplete(){
     lightContext.drawImage(light,0,0);
@@ -40,8 +49,11 @@ function update(){
 }
 
 function moveLight(e){
-    testContext.drawImage(lightHolder,e.clientX-(lightHolder.width/2),e.clientY-(lightHolder.height/2));
+    //use the pageX and pageY to eliminate the positioning offset when a page scrolls
+    testContext.drawImage(lightHolder,e.pageX-(lightHolder.width/2),e.pageY-(lightHolder.height/2));
+//    testContext.drawImage(lightHolder,e.clientX-(lightHolder.width/2),e.clientY-(lightHolder.height/2));
 }
+
 
 function changeLightColor(){
     //modify the imageData to change the color
@@ -66,9 +78,6 @@ function changeLightColor(){
     }
 }
 
-// function driftImage(){
-
-// }
 function fadeImage(){
     if(testCanvas.width>0){
         let tempImage = testContext.getImageData(DRIFT_X_AMOUNT,DRIFT_Y_AMOUNT,testCanvas.width, testCanvas.height);
@@ -85,3 +94,4 @@ function fadeImage(){
 canvas.addEventListener("mousemove", moveLight);
 //hide the cursor on the canvas
 canvas.style.cursor = "none";
+init();
